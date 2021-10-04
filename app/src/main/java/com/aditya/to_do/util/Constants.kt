@@ -4,7 +4,12 @@ object Constants {
 
     //These are Database Constants
     const val TODO_TB = "todo_table"
-    const val DB_NAME = "todo_database"
+    const val DB_NAME = "todo_db"
     const val DB_VER = 1
 
+    const val LIST_SCREEN = "list/{action}"
+    const val TASK_SCREEN = "task/{taskId}"
+
+    const val LIST_ARGUMENT_KEY  ="action"
+    const val TASK_ARGUMENT_KEY  ="taskId"
 }
