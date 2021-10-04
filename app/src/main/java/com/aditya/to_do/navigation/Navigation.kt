@@ -1,15 +1,21 @@
 package com.aditya.to_do.navigation
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import com.aditya.to_do.navigation.destinations.listComposable
 import com.aditya.to_do.navigation.destinations.taskComposable
+import com.aditya.to_do.ui.viewmodels.SharedViewModel
 import com.aditya.to_do.util.Constants.LIST_SCREEN
 
+@ExperimentalMaterialApi
 @Composable
-fun SetupNavigation(navController: NavHostController) {
+fun SetupNavigation(
+    navController: NavHostController,
+    sharedViewModel: SharedViewModel
+) {
 
     val screen = remember(navController) {
         Screens(navController = navController)
@@ -17,7 +23,8 @@ fun SetupNavigation(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = LIST_SCREEN){
         listComposable(
-            navigateToTaskScreen = screen.task
+            navigateToTaskScreen = screen.task,
+            sharedViewModel = sharedViewModel
         )
         taskComposable(
             navigateToListScreen = screen.lists
