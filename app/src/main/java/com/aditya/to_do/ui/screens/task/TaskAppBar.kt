@@ -11,9 +11,14 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.aditya.to_do.R
+import com.aditya.to_do.components.DisplayAlertDialog
 import com.aditya.to_do.data.models.ToDoTask
 import com.aditya.to_do.ui.theme.topAppBarBackgroundColor
 import com.aditya.to_do.ui.theme.topAppBarContentColor
@@ -67,10 +72,26 @@ fun ExistingTaskAppBar(navigateToListScreen: (Action) -> Unit){
         },
         backgroundColor = MaterialTheme.colors.topAppBarBackgroundColor,
         actions = {
-            UpdateAction(onUpdateClicked = navigateToListScreen)
-            DeleteAction(onDeleteClicked = navigateToListScreen)
+            ExistingTaskAppBarActions(navigateToListScreen = navigateToListScreen)
         }
     )
+}
+
+@Composable
+fun ExistingTaskAppBarActions(navigateToListScreen: (Action) -> Unit){
+    var openDialog by remember { mutableStateOf(false) }
+
+    DisplayAlertDialog(
+        title = stringResource(id = R.string.delete_task),
+        msg = stringResource(id = R.string.delete_task_confirmation),
+        openDialog = openDialog,
+        onCloseDialog = { openDialog = false },
+        onYesClicked = { navigateToListScreen(Action.DELETE) }
+    )
+
+    UpdateAction(onUpdateClicked = navigateToListScreen)
+    DeleteAction(onDeleteClicked = { openDialog = true } )
+
 }
 
 @Composable

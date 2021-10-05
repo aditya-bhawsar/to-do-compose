@@ -13,5 +13,8 @@ object Constants {
     const val LIST_ARGUMENT_KEY = "action"
     const val TASK_ARGUMENT_KEY = "taskId"
 
+    const val PREFERENCE_NAME = "todo_preference"
+    const val PREFERENCE_KEY = "sort_state"
+
     const val TITLE_LENGTH_LIMIT = 20
 }

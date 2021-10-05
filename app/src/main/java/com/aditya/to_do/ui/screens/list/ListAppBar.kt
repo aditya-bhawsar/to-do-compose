@@ -33,6 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import com.aditya.to_do.R
+import com.aditya.to_do.components.DisplayAlertDialog
 import com.aditya.to_do.components.PriorityItem
 import com.aditya.to_do.data.models.Priority
 import com.aditya.to_do.ui.theme.LARGE_PADDING
@@ -57,7 +58,9 @@ fun ListAppBar(
                 onSearchClicked = {
                     sharedViewModel.searchAppBarState.value = SearchAppBarState.OPENED
                 },
-                onSortClicked = {},
+                onSortClicked = { priority ->
+                    sharedViewModel.persistSortState(priority = priority)
+                },
                 onDeleteAllClicked = {
                     sharedViewModel.action.value = Action.DELETE_ALL
                 }
@@ -92,7 +95,7 @@ fun DefaultListAppBar(
             ListAppBarActions(
                 onSearchClicked = onSearchClicked,
                 onSortClicked = onSortClicked,
-                onDeleteClicked = onDeleteAllClicked
+                onDeleteAllConfirmed = onDeleteAllClicked
             )
         },
         title = {
@@ -109,12 +112,23 @@ fun DefaultListAppBar(
 fun ListAppBarActions(
     onSearchClicked: () -> Unit,
     onSortClicked: (Priority) -> Unit,
-    onDeleteClicked: () -> Unit
+    onDeleteAllConfirmed: () -> Unit
 ){
+    var openDialog by remember { mutableStateOf(false) }
+
+    DisplayAlertDialog(
+        title = stringResource(id = R.string.delete_task),
+        msg = stringResource(id = R.string.delete_all_tasks_confirmation),
+        openDialog = openDialog,
+        onCloseDialog = { openDialog = false },
+        onYesClicked = { onDeleteAllConfirmed() }
+    )
+
     SearchAction(onSearchClicked = onSearchClicked)
     SortAction(onSortClicked = onSortClicked)
-    DeleteAllAction(onDeleteClicked = onDeleteClicked)
+    DeleteAllAction(onDeleteClicked = { openDialog = true })
 }
+
 
 @Composable
 fun SearchAction(

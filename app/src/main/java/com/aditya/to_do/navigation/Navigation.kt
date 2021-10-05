@@ -1,5 +1,6 @@
 package com.aditya.to_do.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -10,6 +11,7 @@ import com.aditya.to_do.navigation.destinations.taskComposable
 import com.aditya.to_do.ui.viewmodels.SharedViewModel
 import com.aditya.to_do.util.Constants.LIST_SCREEN
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun SetupNavigation(

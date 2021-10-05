@@ -2,6 +2,9 @@
     <string name="app_name">To-Do</string>
 
     <string name="add_button">Add Button</string>
+    <string name="delete_task">Confirm Deletion</string>
+    <string name="delete_all_tasks_confirmation">Are you sure you want to delete all tasks?</string>
+    <string name="delete_task_confirmation">Are you sure you want to remove this task?</string>
     <string name="dropdown_icon">Dropdown Icon</string>
     <string name="add_action">Add Action</string>
     <string name="delete_action">Delete Action</string>
@@ -12,6 +15,8 @@
     <string name="search_action">Search Tasks</string>
     <string name="sort_action">Sort Tasks</string>
     <string name="close_icon">Close Icon</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
     <string name="delete_all">Delete All</string>
     <string name="title_label">Title</string>
     <string name="desc_label">Description</string>

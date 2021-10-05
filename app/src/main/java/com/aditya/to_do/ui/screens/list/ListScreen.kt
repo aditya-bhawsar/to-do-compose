@@ -1,5 +1,6 @@
 package com.aditya.to_do.ui.screens.list
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
@@ -24,6 +25,7 @@ import com.aditya.to_do.util.Action
 import com.aditya.to_do.util.SearchAppBarState
 import kotlinx.coroutines.launch
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun ListScreen(
@@ -32,12 +34,17 @@ fun ListScreen(
 ){
     LaunchedEffect(key1 = true){
         sharedViewModel.getAllTasks()
+        sharedViewModel.readSortState()
     }
 
     val action by sharedViewModel.action
 
     val allTasks by sharedViewModel.allTasks.collectAsState()
     val searchedTasks by sharedViewModel.searchTasks.collectAsState()
+    val sortState by sharedViewModel.sortState.collectAsState()
+    val lowPriorityTasks by sharedViewModel.lowPriorityTasks.collectAsState()
+    val highPriorityTasks by sharedViewModel.highPriorityTasks.collectAsState()
+
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
 
@@ -64,7 +71,14 @@ fun ListScreen(
             ListContent(
                 allTasks = allTasks,
                 searchTasks = searchedTasks,
+                lowPriorityTasks = lowPriorityTasks,
+                highPriorityTasks = highPriorityTasks,
+                sortState = sortState,
                 searchAppBarState = searchAppBarState,
+                onSwipeToDelete = {action, toDoTask ->
+                    sharedViewModel.action.value = action
+                    sharedViewModel.updateSelectedTask(selectedTask = toDoTask)
+                },
                 navigateToTaskScreen = navigateToTaskScreen
             )
         },
