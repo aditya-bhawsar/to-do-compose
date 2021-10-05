@@ -41,7 +41,8 @@ fun ListContent(
         if(searchTasks is RequestState.Success)
             HandleListContent(tasks = searchTasks.data, navigateToTaskScreen = navigateToTaskScreen)
     }else{
-        if(allTasks is RequestState.Success){
+        if(allTasks is RequestState.Success) {
+            println("all ${allTasks.data}")
             HandleListContent(tasks = allTasks.data, navigateToTaskScreen = navigateToTaskScreen)
         }
     }
