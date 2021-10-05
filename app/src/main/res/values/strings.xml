@@ -9,6 +9,7 @@
     <string name="add_action">Add Action</string>
     <string name="delete_action">Delete Action</string>
     <string name="update_action">Update Action</string>
+    <string name="splash_icon">Splash Icon</string>
     <string name="empty_message">No Tasks Found</string>
     <string name="empty_content">Empty Content</string>
     <string name="search_placeholder">Search</string>

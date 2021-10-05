@@ -7,9 +7,11 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.aditya.to_do.navigation.destinations.listComposable
+import com.aditya.to_do.navigation.destinations.splashComposable
 import com.aditya.to_do.navigation.destinations.taskComposable
 import com.aditya.to_do.ui.viewmodels.SharedViewModel
 import com.aditya.to_do.util.Constants.LIST_SCREEN
+import com.aditya.to_do.util.Constants.SPLASH_SCREEN
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
@@ -23,13 +25,16 @@ fun SetupNavigation(
         Screens(navController = navController)
     }
 
-    NavHost(navController = navController, startDestination = LIST_SCREEN){
+    NavHost(navController = navController, startDestination = SPLASH_SCREEN){
+        splashComposable(
+            navigateToListScreen = screen.splash
+        )
         listComposable(
-            navigateToTaskScreen = screen.task,
+            navigateToTaskScreen = screen.lists,
             sharedViewModel = sharedViewModel
         )
         taskComposable(
-            navigateToListScreen = screen.lists,
+            navigateToListScreen = screen.task,
             sharedViewModel = sharedViewModel
         )
     }
