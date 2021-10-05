@@ -2,6 +2,10 @@
     <string name="app_name">To-Do</string>
 
     <string name="add_button">Add Button</string>
+    <string name="dropdown_icon">Dropdown Icon</string>
+    <string name="add_action">Add Action</string>
+    <string name="delete_action">Delete Action</string>
+    <string name="update_action">Update Action</string>
     <string name="empty_message">No Tasks Found</string>
     <string name="empty_content">Empty Content</string>
     <string name="search_placeholder">Search</string>
@@ -9,4 +13,9 @@
     <string name="sort_action">Sort Tasks</string>
     <string name="close_icon">Close Icon</string>
     <string name="delete_all">Delete All</string>
+    <string name="title_label">Title</string>
+    <string name="desc_label">Description</string>
+    <string name="back_action">Back Arrow</string>
+    <string name="new_task_heading">Create Task</string>
+    <string name="edit_task_heading">Edit Task</string>
 </resources>

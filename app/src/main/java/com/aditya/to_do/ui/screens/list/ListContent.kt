@@ -27,22 +27,39 @@ import com.aditya.to_do.ui.theme.TASK_ITEM_ELEVATION
 import com.aditya.to_do.ui.theme.taskItemBackgroundColor
 import com.aditya.to_do.ui.theme.taskItemTextColor
 import com.aditya.to_do.util.RequestState
+import com.aditya.to_do.util.SearchAppBarState
 
 @ExperimentalMaterialApi
 @Composable
 fun ListContent(
-    toDoTaskList: RequestState<List<ToDoTask>>,
+    allTasks: RequestState<List<ToDoTask>>,
+    searchTasks: RequestState<List<ToDoTask>>,
+    searchAppBarState: SearchAppBarState,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ){
-    if(toDoTaskList is RequestState.Success){
-        if(toDoTaskList.data.isEmpty()){
-            EmptyContent()
-        }else{
-            DisplayTasks(
-                toDoTaskList = toDoTaskList.data,
-                navigateToTaskScreen = navigateToTaskScreen
-            )
+    if(searchAppBarState == SearchAppBarState.TRIGGERED){
+        if(searchTasks is RequestState.Success)
+            HandleListContent(tasks = searchTasks.data, navigateToTaskScreen = navigateToTaskScreen)
+    }else{
+        if(allTasks is RequestState.Success){
+            HandleListContent(tasks = allTasks.data, navigateToTaskScreen = navigateToTaskScreen)
         }
+    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun HandleListContent(
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+){
+    if(tasks.isEmpty()){
+        EmptyContent()
+    }else{
+        DisplayTasks(
+            toDoTaskList = tasks,
+            navigateToTaskScreen = navigateToTaskScreen
+        )
     }
 }
 

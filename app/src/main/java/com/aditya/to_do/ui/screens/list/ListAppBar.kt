@@ -41,6 +41,7 @@ import com.aditya.to_do.ui.theme.Typography
 import com.aditya.to_do.ui.theme.topAppBarBackgroundColor
 import com.aditya.to_do.ui.theme.topAppBarContentColor
 import com.aditya.to_do.ui.viewmodels.SharedViewModel
+import com.aditya.to_do.util.Action
 import com.aditya.to_do.util.SearchAppBarState
 import com.aditya.to_do.util.TrailingIconState
 
@@ -57,7 +58,9 @@ fun ListAppBar(
                     sharedViewModel.searchAppBarState.value = SearchAppBarState.OPENED
                 },
                 onSortClicked = {},
-                onDeleteClicked = {}
+                onDeleteAllClicked = {
+                    sharedViewModel.action.value = Action.DELETE_ALL
+                }
             )
         }
         else ->{
@@ -69,30 +72,27 @@ fun ListAppBar(
                 onCloseClicked = {
                     sharedViewModel.searchAppBarState.value = SearchAppBarState.CLOSED
                     sharedViewModel.searchTextState.value = ""
-                                 },
-                onSearchClicked = {}
+                },
+                onSearchClicked = {
+                    sharedViewModel.getSearchedTasks(searchQuery = it)
+                }
             )
         }
     }
-    DefaultListAppBar(
-        onSearchClicked = {},
-        onSortClicked = {},
-        onDeleteClicked = {}
-    )
 }
 
 @Composable
 fun DefaultListAppBar(
     onSearchClicked: () -> Unit,
     onSortClicked: (Priority) -> Unit,
-    onDeleteClicked: () -> Unit
+    onDeleteAllClicked: () -> Unit
 ){
     TopAppBar(
         actions = {
             ListAppBarActions(
                 onSearchClicked = onSearchClicked,
                 onSortClicked = onSortClicked,
-                onDeleteClicked = onDeleteClicked
+                onDeleteClicked = onDeleteAllClicked
             )
         },
         title = {
