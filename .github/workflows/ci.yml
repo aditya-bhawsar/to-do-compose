@@ -1,1 +1,22 @@
+name: CI
 
+on: pull_request
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Jdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Build Project
+        run: ./gradlew assemble
