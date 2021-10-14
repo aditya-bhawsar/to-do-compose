@@ -1,0 +1,63 @@
+name: CI
+
+on: pull_request
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Run Lint
+        run: ./gradlew lint
+
+
+  ktLint:
+    needs: [ lint ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Jdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: KtLint Check
+        run: ./gradlew ktlintCheck
+
+
+  unit_tests:
+    needs: [ ktLint ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Unit tests
+        run: ./gradlew test
+
+
+  android_tests:
+    needs: [ unit_tests ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Instrumentation Tests
+        uses: reactivecircus/android-emulator-runner@v1
+        with:
+          api-level: 31
+          script: ./gradlew connectedAndroidTest
+
+
+  build_and_assemble:
+    needs: [ android_tests ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v1
+
+      - name: Build Project
+        run: ./gradlew build
+
+      - name: Aseemble
+        run: ./gradlew assemble
