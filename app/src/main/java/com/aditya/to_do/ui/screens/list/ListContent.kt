@@ -34,7 +34,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,7 +57,6 @@ import com.aditya.to_do.util.Action
 import com.aditya.to_do.util.RequestState
 import com.aditya.to_do.util.SearchAppBarState
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
@@ -148,7 +146,7 @@ fun DisplayTasks(
             val isDismissed = dismissState.isDismissed(DismissDirection.EndToStart)
 
             if (isDismissed && dismissDirection == DismissDirection.EndToStart) {
-                LaunchedEffect(key1 = true){
+                LaunchedEffect(key1 = true) {
                     delay(300)
                     swipeToDelete(Action.DELETE, task)
                 }
