@@ -1,4 +1,4 @@
-package com.aditya.to_do.ui.splash
+package com.aditya.to_do.ui.screens.splash
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
