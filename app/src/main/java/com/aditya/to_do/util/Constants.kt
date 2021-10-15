@@ -18,5 +18,5 @@ object Constants {
     const val PREFERENCE_KEY = "sort_state"
 
     const val TITLE_LENGTH_LIMIT = 20
-    const val SPLASH_DELAY = 300L
+    const val SPLASH_DELAY = 3000L
 }
