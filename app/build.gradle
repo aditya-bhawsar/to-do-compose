@@ -78,6 +78,9 @@ dependencies {
     // Navigation
     implementation Libs.Navigation.navigation
 
+    // Navigation Animation
+    implementation Libs.Accompanist.navigationAnim
+
     // Room DB
     implementation Libs.Room.roomRuntime
     implementation Libs.Room.roomKtx

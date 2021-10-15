@@ -22,12 +22,12 @@ import com.aditya.to_do.ui.theme.MEDIUM_PADDING
 @Composable
 fun TaskContent(
     title: String,
-    onTitleChanged: (String)-> Unit,
+    onTitleChanged: (String) -> Unit,
     description: String,
-    onDescriptionChanged: (String)-> Unit,
+    onDescriptionChanged: (String) -> Unit,
     priority: Priority,
-    onPrioritySelected: (Priority)-> Unit
-){
+    onPrioritySelected: (Priority) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()

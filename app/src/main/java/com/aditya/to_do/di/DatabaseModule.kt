@@ -24,7 +24,6 @@ object DatabaseModule {
         Constants.DB_NAME
     ).build()
 
-
     @Provides
     @Singleton
     internal fun getTodoDao(database: ToDoDatabase): ToDoDao = database.getToDoDao()

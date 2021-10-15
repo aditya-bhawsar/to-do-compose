@@ -13,6 +13,7 @@ object Version{
     const val materialVersion = "1.4.0"
     const val lifeCycleVer = "2.3.1"
     const val extJunitVer = "1.1.3"
+    const val accompanistVer = "0.17.0"
     const val junitVer = "4.13.2"
     const val espressoVer = "3.4.0"
     const val composeVer = "1.0.3"
@@ -54,6 +55,10 @@ object Libs{
     object AndroidX {
         const val appcompat = "androidx.appcompat:appcompat:${Version.appCompatVer}"
         const val coreKtx = "androidx.core:core-ktx:${Version.coreKtxVer}"
+    }
+
+    object Accompanist {
+        const val navigationAnim = "com.google.accompanist:accompanist-navigation-animation:${Version.accompanistVer}"
     }
 
     object Material {
