@@ -2,10 +2,10 @@ package com.aditya.to_do.ui.screens.task
 
 import android.content.Context
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.aditya.to_do.data.models.Priority
 import com.aditya.to_do.data.models.ToDoTask
@@ -23,6 +23,10 @@ fun TaskScreen(
     val priority: Priority by sharedViewModel.priority
 
     val ctx = LocalContext.current
+
+    BackHandler {
+        navigateToListScreen(Action.NO_ACTION)
+    }
 
     Scaffold(
         topBar = {

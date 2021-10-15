@@ -44,7 +44,6 @@ import com.aditya.to_do.ui.theme.topAppBarContentColor
 import com.aditya.to_do.ui.viewmodels.SharedViewModel
 import com.aditya.to_do.util.Action
 import com.aditya.to_do.util.SearchAppBarState
-import com.aditya.to_do.util.TrailingIconState
 
 @Composable
 fun ListAppBar(
@@ -225,8 +224,6 @@ fun SearchAppBar(
     onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit
 ) {
-    var trailingIconState by remember { mutableStateOf(TrailingIconState.READY_TO_DELETE) }
-
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -273,19 +270,10 @@ fun SearchAppBar(
             trailingIcon = {
                 IconButton(
                     onClick = {
-                        when (trailingIconState) {
-                            TrailingIconState.READY_TO_DELETE -> {
-                                onTextChanged("")
-                                trailingIconState = TrailingIconState.READY_TO_CLOSE
-                            }
-                            TrailingIconState.READY_TO_CLOSE -> {
-                                if (text.isNotEmpty()) {
-                                    onTextChanged("")
-                                } else {
-                                    onCloseClicked()
-                                    trailingIconState = TrailingIconState.READY_TO_DELETE
-                                }
-                            }
+                        if (text.isNotEmpty()) {
+                            onTextChanged("")
+                        } else {
+                            onCloseClicked()
                         }
                     }
                 ) {

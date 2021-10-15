@@ -45,6 +45,21 @@ class SharedViewModel @Inject constructor(
     private var _searchTasks = MutableStateFlow<RequestState<List<ToDoTask>>>(RequestState.Idle)
     val searchTasks: StateFlow<RequestState<List<ToDoTask>>> get() = _searchTasks
 
+    private var _selectedTask: MutableStateFlow<ToDoTask?> = MutableStateFlow(null)
+    val selectedTask: StateFlow<ToDoTask?> get() = _selectedTask
+
+    private val _sortState = MutableStateFlow<RequestState<Priority>>(RequestState.Idle)
+    val sortState: StateFlow<RequestState<Priority>>
+        get() = _sortState
+
+    private var _allTasks = MutableStateFlow<RequestState<List<ToDoTask>>>(RequestState.Idle)
+    val allTasks: StateFlow<RequestState<List<ToDoTask>>> get() = _allTasks
+
+    init {
+        getAllTasks()
+        readSortState()
+    }
+
     fun getSearchedTasks(searchQuery: String) = viewModelScope.launch {
         _searchTasks.value = RequestState.Loading
         try {
@@ -71,11 +86,7 @@ class SharedViewModel @Inject constructor(
             emptyList()
         )
 
-    private val _sortState = MutableStateFlow<RequestState<Priority>>(RequestState.Idle)
-    val sortState: StateFlow<RequestState<Priority>>
-        get() = _sortState
-
-    fun readSortState() = viewModelScope.launch {
+    private fun readSortState() = viewModelScope.launch {
         _sortState.value = RequestState.Loading
         try {
             dataStoreRepo.readSortState
@@ -90,10 +101,7 @@ class SharedViewModel @Inject constructor(
         dataStoreRepo.persistSortState(priority = priority)
     }
 
-    private var _allTasks = MutableStateFlow<RequestState<List<ToDoTask>>>(RequestState.Idle)
-    val allTasks: StateFlow<RequestState<List<ToDoTask>>> get() = _allTasks
-
-    fun getAllTasks() = viewModelScope.launch {
+    private fun getAllTasks() = viewModelScope.launch {
         _allTasks.value = RequestState.Loading
         try {
             toDoRepo.getAllTasks.collect {
@@ -103,9 +111,6 @@ class SharedViewModel @Inject constructor(
             _allTasks.value = RequestState.Error(e)
         }
     }
-
-    private var _selectedTask: MutableStateFlow<ToDoTask?> = MutableStateFlow(null)
-    val selectedTask: StateFlow<ToDoTask?> get() = _selectedTask
 
     fun getSelectedTask(taskId: Int) = viewModelScope.launch {
         toDoRepo.getSelectedTodo(taskId).collect { task ->
@@ -154,7 +159,6 @@ class SharedViewModel @Inject constructor(
             Action.DELETE_ALL -> { deleteAllTasks() }
             else -> {}
         }
-        this.action.value = Action.NO_ACTION
     }
 
     private fun updateTask() = viewModelScope.launch(Dispatchers.IO) {
