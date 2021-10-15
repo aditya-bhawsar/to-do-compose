@@ -109,7 +109,6 @@ fun ListContent(
             }
         }
     }
-
 }
 
 @ExperimentalAnimationApi
