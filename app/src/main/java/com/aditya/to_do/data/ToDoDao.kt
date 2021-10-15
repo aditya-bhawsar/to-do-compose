@@ -9,7 +9,6 @@ import androidx.room.Update
 import com.aditya.to_do.data.models.ToDoTask
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface ToDoDao {
 

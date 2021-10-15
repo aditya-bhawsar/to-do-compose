@@ -1,4 +1,5 @@
 import com.aditya.to_do.buildSrc.Libs
+import com.aditya.to_do.buildSrc.Version
 
 plugins {
     id 'com.android.application'
@@ -45,7 +46,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.0.3"
+        kotlinCompilerExtensionVersion Version.composeVer
     }
 
     packagingOptions {
@@ -57,34 +58,42 @@ android {
 
 dependencies {
 
+    // Androidx
     implementation Libs.AndroidX.coreKtx
     implementation Libs.AndroidX.appcompat
 
+    // Material Design
     implementation Libs.Material.material
 
+    // Lifecycle
     implementation Libs.LifeCycle.lifeCycleRuntime
 
+    // Compose
     implementation Libs.Compose.ui
     implementation Libs.Compose.material
     implementation Libs.Compose.tooling
     implementation Libs.Compose.toolingPrev
     implementation Libs.Compose.activityCompose
 
+    // Navigation
     implementation Libs.Navigation.navigation
 
+    // Room DB
     implementation Libs.Room.roomRuntime
     implementation Libs.Room.roomKtx
     kapt Libs.Room.roomCompiler
 
+    // Datastore
     implementation Libs.DataStore.datastorePref
 
+    // Hilt
     implementation Libs.Hilt.android
     kapt Libs.Hilt.androidCompiler
     kapt Libs.Hilt.compiler
 
+    // Test
+    testImplementation Libs.JUnit.jUnit
     androidTestImplementation Libs.JUnit.extJUnit
     androidTestImplementation Libs.Espresso.espressoCore
     androidTestImplementation Libs.Compose.composeUiJunit
-
-    testImplementation Libs.JUnit.jUnit
 }

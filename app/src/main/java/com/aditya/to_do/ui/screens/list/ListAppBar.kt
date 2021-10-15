@@ -51,9 +51,9 @@ fun ListAppBar(
     sharedViewModel: SharedViewModel,
     searchAppBarState: SearchAppBarState,
     searchTextState: String
-){
-    when(searchAppBarState){
-        SearchAppBarState.CLOSED ->{
+) {
+    when (searchAppBarState) {
+        SearchAppBarState.CLOSED -> {
             DefaultListAppBar(
                 onSearchClicked = {
                     sharedViewModel.searchAppBarState.value = SearchAppBarState.OPENED
@@ -66,10 +66,10 @@ fun ListAppBar(
                 }
             )
         }
-        else ->{
+        else -> {
             SearchAppBar(
                 text = searchTextState,
-                onTextChanged = { newText->
+                onTextChanged = { newText ->
                     sharedViewModel.searchTextState.value = newText
                 },
                 onCloseClicked = {
@@ -89,7 +89,7 @@ fun DefaultListAppBar(
     onSearchClicked: () -> Unit,
     onSortClicked: (Priority) -> Unit,
     onDeleteAllClicked: () -> Unit
-){
+) {
     TopAppBar(
         actions = {
             ListAppBarActions(
@@ -100,7 +100,7 @@ fun DefaultListAppBar(
         },
         title = {
             Text(
-                text = stringResource(id = R.string.app_name ),
+                text = stringResource(id = R.string.app_name),
                 color = MaterialTheme.colors.topAppBarContentColor
             )
         },
@@ -113,7 +113,7 @@ fun ListAppBarActions(
     onSearchClicked: () -> Unit,
     onSortClicked: (Priority) -> Unit,
     onDeleteAllConfirmed: () -> Unit
-){
+) {
     var openDialog by remember { mutableStateOf(false) }
 
     DisplayAlertDialog(
@@ -129,11 +129,10 @@ fun ListAppBarActions(
     DeleteAllAction(onDeleteClicked = { openDialog = true })
 }
 
-
 @Composable
 fun SearchAction(
-    onSearchClicked: ()-> Unit
-){
+    onSearchClicked: () -> Unit
+) {
     IconButton(onClick = { onSearchClicked() }) {
         Icon(
             imageVector = Icons.Filled.Search,
@@ -145,8 +144,8 @@ fun SearchAction(
 
 @Composable
 fun SortAction(
-    onSortClicked: (Priority)-> Unit
-){
+    onSortClicked: (Priority) -> Unit
+) {
     var expandedState by remember { mutableStateOf(false) }
 
     IconButton(onClick = { expandedState = true }) {
@@ -159,22 +158,28 @@ fun SortAction(
             expanded = expandedState,
             onDismissRequest = { expandedState = false }
         ) {
-            DropdownMenuItem(onClick = {
-                onSortClicked(Priority.LOW)
-                expandedState = false
-            }) {
+            DropdownMenuItem(
+                onClick = {
+                    onSortClicked(Priority.LOW)
+                    expandedState = false
+                }
+            ) {
                 PriorityItem(priority = Priority.LOW)
             }
-            DropdownMenuItem(onClick = {
-                onSortClicked(Priority.HIGH)
-                expandedState = false
-            }) {
+            DropdownMenuItem(
+                onClick = {
+                    onSortClicked(Priority.HIGH)
+                    expandedState = false
+                }
+            ) {
                 PriorityItem(priority = Priority.HIGH)
             }
-            DropdownMenuItem(onClick = {
-                onSortClicked(Priority.NONE)
-                expandedState = false
-            }) {
+            DropdownMenuItem(
+                onClick = {
+                    onSortClicked(Priority.NONE)
+                    expandedState = false
+                }
+            ) {
                 PriorityItem(priority = Priority.NONE)
             }
         }
@@ -183,8 +188,8 @@ fun SortAction(
 
 @Composable
 fun DeleteAllAction(
-    onDeleteClicked: ()-> Unit
-){
+    onDeleteClicked: () -> Unit
+) {
     var expandedState by remember { mutableStateOf(false) }
 
     IconButton(onClick = { expandedState = true }) {
@@ -197,10 +202,12 @@ fun DeleteAllAction(
             expanded = expandedState,
             onDismissRequest = { expandedState = false }
         ) {
-            DropdownMenuItem(onClick = {
-                onDeleteClicked()
-                expandedState = false
-            }) {
+            DropdownMenuItem(
+                onClick = {
+                    onDeleteClicked()
+                    expandedState = false
+                }
+            ) {
                 Text(
                     modifier = Modifier.padding(start = LARGE_PADDING),
                     text = stringResource(id = R.string.delete_all),
@@ -214,10 +221,10 @@ fun DeleteAllAction(
 @Composable
 fun SearchAppBar(
     text: String,
-    onTextChanged: (String)-> Unit,
-    onCloseClicked: ()-> Unit,
+    onTextChanged: (String) -> Unit,
+    onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit
-){
+) {
     var trailingIconState by remember { mutableStateOf(TrailingIconState.READY_TO_DELETE) }
 
     Surface(
@@ -244,7 +251,7 @@ fun SearchAppBar(
                 IconButton(
                     modifier = Modifier.alpha(ContentAlpha.disabled),
                     onClick = { onSearchClicked(text) }
-                ){
+                ) {
                     Icon(
                         imageVector = Icons.Filled.Search,
                         contentDescription = stringResource(id = R.string.search_action),
@@ -264,21 +271,24 @@ fun SearchAppBar(
                 backgroundColor = Color.Transparent
             ),
             trailingIcon = {
-                IconButton(onClick = {
-                    when(trailingIconState){
-                        TrailingIconState.READY_TO_DELETE->{
-                            onTextChanged("")
-                            trailingIconState = TrailingIconState.READY_TO_CLOSE
-                        }
-                        TrailingIconState.READY_TO_CLOSE->{
-                            if(text.isNotEmpty()) { onTextChanged("") }
-                            else{
-                                onCloseClicked()
-                                trailingIconState = TrailingIconState.READY_TO_DELETE
+                IconButton(
+                    onClick = {
+                        when (trailingIconState) {
+                            TrailingIconState.READY_TO_DELETE -> {
+                                onTextChanged("")
+                                trailingIconState = TrailingIconState.READY_TO_CLOSE
+                            }
+                            TrailingIconState.READY_TO_CLOSE -> {
+                                if (text.isNotEmpty()) {
+                                    onTextChanged("")
+                                } else {
+                                    onCloseClicked()
+                                    trailingIconState = TrailingIconState.READY_TO_DELETE
+                                }
                             }
                         }
                     }
-                }) {
+                ) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = stringResource(id = R.string.close_icon),

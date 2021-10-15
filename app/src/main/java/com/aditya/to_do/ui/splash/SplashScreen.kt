@@ -10,7 +10,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,21 +29,21 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    navigateToListTaskScreen:()-> Unit
-){
+    navigateToListTaskScreen: () -> Unit
+) {
     var startAnimation by remember {
         mutableStateOf(false)
     }
     val offsetState by animateDpAsState(
-        targetValue = if(startAnimation) 0.dp else 100.dp,
+        targetValue = if (startAnimation) 0.dp else 100.dp,
         animationSpec = tween(durationMillis = 1000)
     )
     val alphaState by animateFloatAsState(
-        targetValue =  if(startAnimation) 1f else 0f,
+        targetValue = if (startAnimation) 1f else 0f,
         animationSpec = tween(durationMillis = 1000)
     )
 
-    LaunchedEffect(key1 = true){
+    LaunchedEffect(key1 = true) {
         startAnimation = true
         delay(SPLASH_DELAY)
         navigateToListTaskScreen()
@@ -48,18 +53,18 @@ fun SplashScreen(
             .fillMaxSize()
             .background(MaterialTheme.colors.splashScreenBackground),
         contentAlignment = Alignment.Center
-    ){
+    ) {
         Image(
             modifier = Modifier.size(LOGO_HEIGHT),
             painter = painterResource(id = getLogo()),
-            contentDescription = stringResource(id = R.string.splash_icon))
+            contentDescription = stringResource(
+                id = R.string.splash_icon
+            )
+        )
     }
 }
 
 @Composable
-fun getLogo():Int{
-    return if(isSystemInDarkTheme())
-        R.drawable.ic_logo_dark
-    else
-        R.drawable.ic_logo_light
+fun getLogo(): Int {
+    return if (isSystemInDarkTheme()) R.drawable.ic_logo_dark else R.drawable.ic_logo_light
 }

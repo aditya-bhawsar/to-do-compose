@@ -10,8 +10,7 @@ import com.aditya.to_do.util.Constants
     exportSchema = false,
     version = Constants.DB_VER
 )
-abstract class ToDoDatabase :RoomDatabase() {
+abstract class ToDoDatabase : RoomDatabase() {
 
     abstract fun getToDoDao(): ToDoDao
-
 }

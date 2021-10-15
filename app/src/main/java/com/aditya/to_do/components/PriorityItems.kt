@@ -15,9 +15,9 @@ import com.aditya.to_do.ui.theme.LARGE_PADDING
 import com.aditya.to_do.ui.theme.PRIORITY_INDICATOR_SIZE
 
 @Composable
-fun PriorityItem(priority: Priority){
+fun PriorityItem(priority: Priority) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Canvas(modifier = Modifier.size(PRIORITY_INDICATOR_SIZE)){
+        Canvas(modifier = Modifier.size(PRIORITY_INDICATOR_SIZE)) {
             drawCircle(color = priority.color)
         }
         Text(

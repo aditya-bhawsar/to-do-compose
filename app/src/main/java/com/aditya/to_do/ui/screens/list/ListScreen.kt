@@ -29,10 +29,10 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @Composable
 fun ListScreen(
-    navigateToTaskScreen: (taskId: Int)-> Unit,
+    navigateToTaskScreen: (taskId: Int) -> Unit,
     sharedViewModel: SharedViewModel
-){
-    LaunchedEffect(key1 = true){
+) {
+    LaunchedEffect(key1 = true) {
         sharedViewModel.getAllTasks()
         sharedViewModel.readSortState()
     }
@@ -75,7 +75,7 @@ fun ListScreen(
                 highPriorityTasks = highPriorityTasks,
                 sortState = sortState,
                 searchAppBarState = searchAppBarState,
-                onSwipeToDelete = {action, toDoTask ->
+                onSwipeToDelete = { action, toDoTask ->
                     sharedViewModel.action.value = action
                     sharedViewModel.updateSelectedTask(selectedTask = toDoTask)
                 },
@@ -89,7 +89,7 @@ fun ListScreen(
 }
 
 @Composable
-fun ListFab(navigateToTaskScreen: (taskId: Int) -> Unit){
+fun ListFab(navigateToTaskScreen: (taskId: Int) -> Unit) {
     FloatingActionButton(
         onClick = {
             navigateToTaskScreen(-1)
@@ -107,19 +107,19 @@ fun ListFab(navigateToTaskScreen: (taskId: Int) -> Unit){
 @Composable
 fun DisplaySnackBar(
     scaffoldState: ScaffoldState,
-    handleDatabaseActions: ()-> Unit,
+    handleDatabaseActions: () -> Unit,
     onUndoClicked: (Action) -> Unit,
     title: String,
     action: Action
-){
+) {
     handleDatabaseActions()
 
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(key1 = action){
-        if(action != Action.NO_ACTION){
+    LaunchedEffect(key1 = action) {
+        if (action != Action.NO_ACTION) {
             scope.launch {
-                val snackBarResult =  scaffoldState.snackbarHostState.showSnackbar(
+                val snackBarResult = scaffoldState.snackbarHostState.showSnackbar(
                     message = setMessage(action = action, title = title),
                     actionLabel = setActionLabel(action = action)
                 )
@@ -133,24 +133,27 @@ fun DisplaySnackBar(
     }
 }
 
-private fun setMessage(action: Action, title: String): String{
-    return when(action){
+private fun setMessage(action: Action, title: String): String {
+    return when (action) {
         Action.DELETE_ALL -> "All tasks Removed"
         else -> "${action.name}: $title"
     }
 }
 
-private fun setActionLabel(action: Action): String{
-    return if(action.name == "DELETE"){ "UNDO" }
-    else{ "OK" }
+private fun setActionLabel(action: Action): String {
+    return if (action.name == "DELETE") {
+        "UNDO"
+    } else {
+        "OK"
+    }
 }
 
 private fun undoDeletedTask(
     action: Action,
     snackBarResult: SnackbarResult,
-    onUndoClicked: (Action)-> Unit
-){
-    if(snackBarResult == SnackbarResult.ActionPerformed && action == Action.DELETE){
+    onUndoClicked: (Action) -> Unit
+) {
+    if (snackBarResult == SnackbarResult.ActionPerformed && action == Action.DELETE) {
         onUndoClicked(Action.UNDO)
     }
 }

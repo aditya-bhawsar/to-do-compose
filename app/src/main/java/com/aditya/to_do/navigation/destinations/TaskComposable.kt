@@ -14,27 +14,29 @@ import com.aditya.to_do.util.Constants.TASK_ARGUMENT_KEY
 import com.aditya.to_do.util.Constants.TASK_SCREEN
 
 fun NavGraphBuilder.taskComposable(
-    navigateToListScreen: (Action)-> Unit,
+    navigateToListScreen: (Action) -> Unit,
     sharedViewModel: SharedViewModel
 ) {
     composable(
         route = TASK_SCREEN,
         arguments = listOf(
-            navArgument(TASK_ARGUMENT_KEY){
+            navArgument(TASK_ARGUMENT_KEY) {
                 type = NavType.IntType
             }
         )
-    ){ navBackStackEntry ->
+    ) { navBackStackEntry ->
         val taskId: Int = navBackStackEntry.arguments!!.getInt(TASK_ARGUMENT_KEY)
 
-        LaunchedEffect(key1 = taskId){
+        LaunchedEffect(key1 = taskId) {
             sharedViewModel.getSelectedTask(taskId = taskId)
         }
 
         val selectedTask by sharedViewModel.selectedTask.collectAsState()
 
-        LaunchedEffect(key1 = selectedTask){
-            if(selectedTask != null || taskId == -1) sharedViewModel.updateSelectedTask(selectedTask)
+        LaunchedEffect(key1 = selectedTask) {
+            if (selectedTask != null || taskId == -1) sharedViewModel.updateSelectedTask(
+                selectedTask
+            )
         }
 
         TaskScreen(

@@ -19,7 +19,7 @@ import com.aditya.to_do.R
 import com.aditya.to_do.ui.theme.MediumGray
 
 @Composable
-fun EmptyContent(){
+fun EmptyContent() {
     Column(
         modifier = Modifier
             .fillMaxSize()

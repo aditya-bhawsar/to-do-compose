@@ -5,9 +5,10 @@ import androidx.room.PrimaryKey
 import com.aditya.to_do.util.Constants
 
 @Entity(tableName = Constants.TODO_TB)
-data class ToDoTask (
+data class ToDoTask(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     var title: String,
-    var description :String,
-    var priority: Priority)
+    var description: String,
+    var priority: Priority
+)

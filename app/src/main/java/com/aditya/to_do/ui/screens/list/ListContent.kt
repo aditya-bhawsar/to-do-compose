@@ -70,21 +70,22 @@ fun ListContent(
     highPriorityTasks: List<ToDoTask>,
     sortState: RequestState<Priority>,
     searchAppBarState: SearchAppBarState,
-    onSwipeToDelete: (Action, ToDoTask)-> Unit,
+    onSwipeToDelete: (Action, ToDoTask) -> Unit,
     navigateToTaskScreen: (taskId: Int) -> Unit
-){
+) {
 
-    if(sortState is RequestState.Success){
+    if (sortState is RequestState.Success) {
         when {
             searchAppBarState == SearchAppBarState.TRIGGERED -> {
-                if(searchTasks is RequestState.Success)
+                if (searchTasks is RequestState.Success)
                     HandleListContent(
                         tasks = searchTasks.data,
                         swipeToDelete = onSwipeToDelete,
-                        navigateToTaskScreen = navigateToTaskScreen)
+                        navigateToTaskScreen = navigateToTaskScreen
+                    )
             }
             sortState.data == Priority.NONE -> {
-                if(allTasks is RequestState.Success) {
+                if (allTasks is RequestState.Success) {
                     HandleListContent(
                         tasks = allTasks.data,
                         swipeToDelete = onSwipeToDelete,
@@ -92,13 +93,14 @@ fun ListContent(
                     )
                 }
             }
-            sortState.data == Priority.LOW ->{
+            sortState.data == Priority.LOW -> {
                 HandleListContent(
                     tasks = lowPriorityTasks,
                     swipeToDelete = onSwipeToDelete,
-                    navigateToTaskScreen = navigateToTaskScreen)
+                    navigateToTaskScreen = navigateToTaskScreen
+                )
             }
-            sortState.data == Priority.HIGH ->{
+            sortState.data == Priority.HIGH -> {
                 HandleListContent(
                     tasks = highPriorityTasks,
                     swipeToDelete = onSwipeToDelete,
@@ -115,12 +117,12 @@ fun ListContent(
 @Composable
 fun HandleListContent(
     tasks: List<ToDoTask>,
-    swipeToDelete: (Action, ToDoTask)-> Unit,
+    swipeToDelete: (Action, ToDoTask) -> Unit,
     navigateToTaskScreen: (taskId: Int) -> Unit
-){
-    if(tasks.isEmpty()){
+) {
+    if (tasks.isEmpty()) {
         EmptyContent()
-    }else{
+    } else {
         DisplayTasks(
             toDoTaskList = tasks,
             swipeToDelete = swipeToDelete,
@@ -134,19 +136,19 @@ fun HandleListContent(
 @Composable
 fun DisplayTasks(
     toDoTaskList: List<ToDoTask>,
-    swipeToDelete: (Action, ToDoTask)-> Unit,
+    swipeToDelete: (Action, ToDoTask) -> Unit,
     navigateToTaskScreen: (taskId: Int) -> Unit
-){
-    LazyColumn{
+) {
+    LazyColumn {
         items(
             items = toDoTaskList,
-            key = { task-> task.id }
-        ){ task ->
+            key = { task -> task.id }
+        ) { task ->
             val dismissState = rememberDismissState()
             val dismissDirection = dismissState.dismissDirection
             val isDismissed = dismissState.isDismissed(DismissDirection.EndToStart)
 
-            if(isDismissed && dismissDirection == DismissDirection.EndToStart){
+            if (isDismissed && dismissDirection == DismissDirection.EndToStart) {
                 val scope = rememberCoroutineScope()
                 scope.launch {
                     delay(300)
@@ -155,13 +157,13 @@ fun DisplayTasks(
             }
 
             val degrees by animateFloatAsState(
-                targetValue = if(dismissState.targetValue == DismissValue.Default) 0f else -45f
+                targetValue = if (dismissState.targetValue == DismissValue.Default) 0f else -45f
             )
 
             var itemAppeared by remember {
                 mutableStateOf(false)
             }
-            LaunchedEffect(key1 = true){
+            LaunchedEffect(key1 = true) {
                 itemAppeared = true
             }
 
@@ -193,7 +195,7 @@ fun DisplayTasks(
 }
 
 @Composable
-fun RedBackground(degrees: Float){
+fun RedBackground(degrees: Float) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -214,8 +216,8 @@ fun RedBackground(degrees: Float){
 @Composable
 fun TaskItem(
     toDoTask: ToDoTask,
-    navigateToTaskScreen: (taskId: Int)-> Unit
-){
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         color = MaterialTheme.colors.taskItemBackgroundColor,
@@ -239,18 +241,18 @@ fun TaskItem(
                     fontWeight = FontWeight.Bold,
                     maxLines = 1
                 )
-                Box (
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
                     contentAlignment = Alignment.TopEnd
-                ){
-                  Canvas(
-                      modifier = Modifier
-                          .size(PRIORITY_INDICATOR_SIZE)
-                  ) {
-                    drawCircle(color = toDoTask.priority.color)
-                  }
+                ) {
+                    Canvas(
+                        modifier = Modifier
+                            .size(PRIORITY_INDICATOR_SIZE)
+                    ) {
+                        drawCircle(color = toDoTask.priority.color)
+                    }
                 }
             }
             Text(

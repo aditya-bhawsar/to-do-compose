@@ -15,9 +15,9 @@ import com.aditya.to_do.util.Action
 @Composable
 fun TaskScreen(
     sharedViewModel: SharedViewModel,
-    navigateToListScreen: (Action)-> Unit,
+    navigateToListScreen: (Action) -> Unit,
     selectedTask: ToDoTask?
-){
+) {
     val title: String by sharedViewModel.title
     val desc: String by sharedViewModel.desc
     val priority: Priority by sharedViewModel.priority
@@ -28,12 +28,12 @@ fun TaskScreen(
         topBar = {
             TaskAppBar(
                 navigateToListScreen = { action ->
-                    if(action == Action.NO_ACTION){
+                    if (action == Action.NO_ACTION) {
                         navigateToListScreen(action)
-                    }else{
-                        if(sharedViewModel.validateFields()){
+                    } else {
+                        if (sharedViewModel.validateFields()) {
                             navigateToListScreen(action)
-                        }else{
+                        } else {
                             displayToast(ctx = ctx)
                         }
                     }
@@ -48,11 +48,11 @@ fun TaskScreen(
                     sharedViewModel.updateTitle(it)
                 },
                 description = desc,
-                onDescriptionChanged ={
+                onDescriptionChanged = {
                     sharedViewModel.desc.value = it
-                                      },
+                },
                 priority = priority,
-                onPrioritySelected ={
+                onPrioritySelected = {
                     sharedViewModel.priority.value = it
                 }
             )
@@ -60,6 +60,6 @@ fun TaskScreen(
     )
 }
 
-fun displayToast(ctx: Context){
-    Toast.makeText( ctx, "Fields can't be Empty", Toast.LENGTH_LONG).show()
+fun displayToast(ctx: Context) {
+    Toast.makeText(ctx, "Fields can't be Empty", Toast.LENGTH_LONG).show()
 }

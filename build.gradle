@@ -5,12 +5,18 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {url "https://plugins.gradle.org/m2/"}
     }
     dependencies {
         classpath Libs.Gradle.androidGradlePlugin
         classpath Libs.Kotlin.gradlePlugin
         classpath Libs.Hilt.hiltAndroidGradlePlugin
+        classpath Libs.KtLint.ktLint
     }
+}
+
+allprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
 }
 
 task clean(type: Delete) {

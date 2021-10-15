@@ -1,6 +1,5 @@
 package com.aditya.to_do.ui.screens.task
 
-import android.app.Notification
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -28,16 +27,16 @@ import com.aditya.to_do.util.Action
 fun TaskAppBar(
     selectedTask: ToDoTask?,
     navigateToListScreen: (Action) -> Unit
-){
-    if(selectedTask == null){
+) {
+    if (selectedTask == null) {
         NewTaskAppBar(navigateToListScreen = navigateToListScreen)
-    }else{
+    } else {
         ExistingTaskAppBar(navigateToListScreen = navigateToListScreen)
     }
 }
 
 @Composable
-fun NewTaskAppBar(navigateToListScreen: (Action)-> Unit){
+fun NewTaskAppBar(navigateToListScreen: (Action) -> Unit) {
     TopAppBar(
         navigationIcon = {
             BackAction(onBackClicked = navigateToListScreen)
@@ -55,14 +54,15 @@ fun NewTaskAppBar(navigateToListScreen: (Action)-> Unit){
     )
 }
 
-
 @Composable
-fun ExistingTaskAppBar(navigateToListScreen: (Action) -> Unit){
+fun ExistingTaskAppBar(navigateToListScreen: (Action) -> Unit) {
     TopAppBar(
         navigationIcon = {
-            BackAction(onBackClicked = {
-                navigateToListScreen(Action.NO_ACTION)
-            })
+            BackAction(
+                onBackClicked = {
+                    navigateToListScreen(Action.NO_ACTION)
+                }
+            )
         },
         title = {
             Text(
@@ -78,7 +78,7 @@ fun ExistingTaskAppBar(navigateToListScreen: (Action) -> Unit){
 }
 
 @Composable
-fun ExistingTaskAppBarActions(navigateToListScreen: (Action) -> Unit){
+fun ExistingTaskAppBarActions(navigateToListScreen: (Action) -> Unit) {
     var openDialog by remember { mutableStateOf(false) }
 
     DisplayAlertDialog(
@@ -90,17 +90,18 @@ fun ExistingTaskAppBarActions(navigateToListScreen: (Action) -> Unit){
     )
 
     UpdateAction(onUpdateClicked = navigateToListScreen)
-    DeleteAction(onDeleteClicked = { openDialog = true } )
-
+    DeleteAction(onDeleteClicked = { openDialog = true })
 }
 
 @Composable
 fun BackAction(
-    onBackClicked: (Action)-> Unit
-){
-    IconButton(onClick = {
-        onBackClicked(Action.NO_ACTION)
-    }) {
+    onBackClicked: (Action) -> Unit
+) {
+    IconButton(
+        onClick = {
+            onBackClicked(Action.NO_ACTION)
+        }
+    ) {
         Icon(
             imageVector = Icons.Filled.ArrowBack,
             contentDescription = stringResource(id = R.string.back_action),
@@ -111,11 +112,13 @@ fun BackAction(
 
 @Composable
 fun AddAction(
-    onAddClicked: (Action)-> Unit
-){
-    IconButton(onClick = {
-        onAddClicked(Action.ADD)
-    }) {
+    onAddClicked: (Action) -> Unit
+) {
+    IconButton(
+        onClick = {
+            onAddClicked(Action.ADD)
+        }
+    ) {
         Icon(
             imageVector = Icons.Filled.Check,
             contentDescription = stringResource(id = R.string.add_action),
@@ -126,11 +129,13 @@ fun AddAction(
 
 @Composable
 fun DeleteAction(
-    onDeleteClicked: (Action)-> Unit
-){
-    IconButton(onClick = {
-        onDeleteClicked(Action.DELETE)
-    }) {
+    onDeleteClicked: (Action) -> Unit
+) {
+    IconButton(
+        onClick = {
+            onDeleteClicked(Action.DELETE)
+        }
+    ) {
         Icon(
             imageVector = Icons.Filled.Delete,
             contentDescription = stringResource(id = R.string.delete_action),
@@ -141,11 +146,13 @@ fun DeleteAction(
 
 @Composable
 fun UpdateAction(
-    onUpdateClicked: (Action)-> Unit
-){
-    IconButton(onClick = {
-        onUpdateClicked(Action.UPDATE)
-    }) {
+    onUpdateClicked: (Action) -> Unit
+) {
+    IconButton(
+        onClick = {
+            onUpdateClicked(Action.UPDATE)
+        }
+    ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_save),
             contentDescription = stringResource(id = R.string.update_action),
