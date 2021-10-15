@@ -5,7 +5,6 @@ object Version{
     const val hiltCompilerVersion = "1.0.0"
     const val dataStoreVersion = "1.0.0"
     const val roomVersion = "2.4.0-alpha05"
-    const val navComposeVer = "2.4.0-alpha06"
     const val agpVersion = "7.0.2"
     const val appCompatVer = "1.3.1"
     const val coreKtxVer = "1.6.0"
@@ -13,7 +12,7 @@ object Version{
     const val materialVersion = "1.4.0"
     const val lifeCycleVer = "2.3.1"
     const val extJunitVer = "1.1.3"
-    const val accompanistVer = "0.17.0"
+    const val accompanistVer = "0.19.0"
     const val junitVer = "4.13.2"
     const val espressoVer = "3.4.0"
     const val composeVer = "1.0.3"
@@ -38,10 +37,6 @@ object Libs{
         const val roomKtx = "androidx.room:room-ktx:${Version.roomVersion}"
         const val roomRuntime = "androidx.room:room-runtime:${Version.roomVersion}"
         const val roomCompiler = "androidx.room:room-compiler:${Version.roomVersion}"
-    }
-
-    object Navigation {
-        const val navigation = "androidx.navigation:navigation-compose:${Version.navComposeVer}"
     }
 
     object Gradle {

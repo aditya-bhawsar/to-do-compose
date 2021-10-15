@@ -75,10 +75,7 @@ dependencies {
     implementation Libs.Compose.toolingPrev
     implementation Libs.Compose.activityCompose
 
-    // Navigation
-    implementation Libs.Navigation.navigation
-
-    // Navigation Animation
+    // Navigation & Animation
     implementation Libs.Accompanist.navigationAnim
 
     // Room DB
